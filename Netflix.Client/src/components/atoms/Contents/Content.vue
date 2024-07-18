@@ -1,39 +1,35 @@
 <template>
-    <div class="loading-bar-wrapper">
-        <div class="lds-ellipsis">
-            <div :style="{ 'background-color': color }"></div>
-            <div :style="{ 'background-color': color }"></div>
-            <div :style="{ 'background-color': color }"></div>
-        </div>
-    </div>
+    <a @click="emit('SelectContent', content)"><img :src="imgSrc" :alt="content.title"></a>
 </template>
 
-<script lang="ts" setup >
-/***********************************************************************************************************/
+<script setup lang="ts">
+/**********************************************************************************************************/
 /*                                             I M P O R T                                                 */
 /***********************************************************************************************************/
-  import { defineProps, toRefs } from 'vue';
-
+    import { computed, defineProps, toRefs } from 'vue';
+	
 /***********************************************************************************************************/
 /*                                               D A T A                                                   */
 /***********************************************************************************************************/
-
+    
 
 /***********************************************************************************************************/
 /*                                            C O M P U T E D                                              */
 /***********************************************************************************************************/
-
+    const imgSrc = computed(() => {
+        return `/assets/image/contentImages/${content.value.category}/${content.value.summaryImg}`;
+    })
 
 /***********************************************************************************************************/
 /*                                              P R O P S                                                  */
 /***********************************************************************************************************/
-  const Props = withDefaults(defineProps<{ color: string }>(), { color: '#6466a6' })
-  const { color } = toRefs(Props);
+    const props = withDefaults(defineProps<{ content: Content }>(), { content: Object.create(null) });
+    const { content } = toRefs(props);
 
 /***********************************************************************************************************/
 /*                                           L I F E C Y C L E                                             */
 /***********************************************************************************************************/
-
+    
 
 /***********************************************************************************************************/
 /*                                             M E T H O D                                                 */
@@ -43,76 +39,15 @@
 /***********************************************************************************************************/
 /*                                               E M I T                                                   */
 /***********************************************************************************************************/
+    const emit = defineEmits<{ SelectContent: [content: Content] }>();
 
 /***********************************************************************************************************/
 /*                                              W A T C H                                                  */
 /***********************************************************************************************************/
-
 </script>
 
 <style scoped>
-.loading-bar-wrapper {
-  height: 100%;
-  flex: 1;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-}
-/* loading */
-.lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ellipsis div {
-  position: absolute;
-  top: 33px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-.lds-ellipsis div:nth-child(1) {
-  left: 8px;
-  animation: lds-ellipsis1 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(2) {
-  left: 8px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(3) {
-  left: 32px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(4) {
-  left: 56px;
-  animation: lds-ellipsis3 0.6s infinite;
-}
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(24px, 0);
-  }
-}
+    a {
+        cursor: pointer;
+    }
 </style>

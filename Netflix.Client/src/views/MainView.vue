@@ -1,12 +1,21 @@
 <template>
     <div id="wrap">
-        <router-view />
+        <Header />
+
+        <div id="container">
+            <router-view />
+        </div>
+
+        <Footer />
     </div>
 </template>
 <script lang="ts" setup >
 /***********************************************************************************************************/
 /*                                             I M P O R T                                                 */
 /***********************************************************************************************************/
+    import Header from '@/components/molecules/Header.vue';
+    import Footer from '@/components/molecules/Footer.vue';
+    
 
 /***********************************************************************************************************/
 /*                                               D A T A                                                   */

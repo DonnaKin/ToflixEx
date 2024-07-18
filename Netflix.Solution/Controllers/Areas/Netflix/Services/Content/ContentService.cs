@@ -245,8 +245,8 @@ namespace Netflix.Solution.Controllers.Areas.Netflix.Services.Content
                     Genre = "청춘 드라마 장르, 드라마 영화, 로맨틱한 영화",
                     MainImg = "img_movie_06_main.webp",
                     SummaryImg = "img_movie_06.webp",
-                    IsTop = false,
-                    IsRecommend = false
+                    IsTop = true,
+                    IsRecommend = true
                 },
                 new ContentItem()
                 {
@@ -272,7 +272,7 @@ namespace Netflix.Solution.Controllers.Areas.Netflix.Services.Content
                     MainImg = "img_movie_08_main.webp",
                     SummaryImg = "img_movie_08.webp",
                     IsTop = true,
-                    IsRecommend = true
+                    IsRecommend = false
                 },
                 new ContentItem()
                 {
@@ -310,8 +310,8 @@ namespace Netflix.Solution.Controllers.Areas.Netflix.Services.Content
                     Genre = "드라마 영화, 사회 이슈 드라마 장르 영화",
                     MainImg = "img_movie_11_main.webp",
                     SummaryImg = "img_movie_11.webp",
-                    IsTop = false,
-                    IsRecommend = false
+                    IsTop = true,
+                    IsRecommend = true
                 }
             ];
         }

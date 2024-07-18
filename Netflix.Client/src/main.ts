@@ -5,6 +5,8 @@ import { createPinia } from 'pinia'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
+import 'swiper/css';
+
 // Use Pinia
 const pinia = createPinia();
 

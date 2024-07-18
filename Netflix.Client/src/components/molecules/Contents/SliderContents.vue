@@ -1,18 +1,36 @@
 <template>
-    <div class="loading-bar-wrapper">
-        <div class="lds-ellipsis">
-            <div :style="{ 'background-color': color }"></div>
-            <div :style="{ 'background-color': color }"></div>
-            <div :style="{ 'background-color': color }"></div>
-        </div>
+    <h3 class="contents_title">{{ title }}</h3>
+    <div class="list_wrap type_slider" :class="`slider${idx}`">
+        <Swiper
+            :modules="[ Navigation ]"
+            :slides-per-view="5"
+            :slides-per-group="5"
+            :space-between="8"
+            :loop="true"
+            :speed="700"
+            :navigation="{
+                nextEl: `.slider${idx} .btn_next`,
+                prevEl: `.slider${idx} .btn_prev`
+            }"
+        >
+            <SwiperSlide v-for="content in contents" :key="content.code">
+                <Content :content="content" @SelectContent="SelectContent" />
+            </SwiperSlide>
+        </Swiper>
+
+        <div class="btn_nav btn_next"></div>
+        <div class="btn_nav btn_prev"></div>
     </div>
 </template>
 
-<script lang="ts" setup >
-/***********************************************************************************************************/
+<script setup lang="ts">
+/**********************************************************************************************************/
 /*                                             I M P O R T                                                 */
 /***********************************************************************************************************/
-  import { defineProps, toRefs } from 'vue';
+    import { Swiper, SwiperSlide } from 'swiper/vue';
+    import { Navigation } from 'swiper/modules';
+    import Content from '@/components/atoms/Contents/Content.vue'
+    import { defineProps, toRefs } from 'vue';
 
 /***********************************************************************************************************/
 /*                                               D A T A                                                   */
@@ -27,8 +45,8 @@
 /***********************************************************************************************************/
 /*                                              P R O P S                                                  */
 /***********************************************************************************************************/
-  const Props = withDefaults(defineProps<{ color: string }>(), { color: '#6466a6' })
-  const { color } = toRefs(Props);
+    const props = withDefaults(defineProps<{ title: string, idx: number, contents: Array<Content> }>(), { title: '시청중인 컨텐츠', idx: 0, contents: Object.create(null) })
+    const { title, contents } = toRefs(props);
 
 /***********************************************************************************************************/
 /*                                           L I F E C Y C L E                                             */
@@ -38,81 +56,16 @@
 /***********************************************************************************************************/
 /*                                             M E T H O D                                                 */
 /***********************************************************************************************************/
-
+    function SelectContent(content: Content) {
+        emit('SelectContent', content)
+    }
 
 /***********************************************************************************************************/
 /*                                               E M I T                                                   */
 /***********************************************************************************************************/
+    const emit = defineEmits<{ SelectContent: [content: Content] }>();
 
 /***********************************************************************************************************/
 /*                                              W A T C H                                                  */
 /***********************************************************************************************************/
-
 </script>
-
-<style scoped>
-.loading-bar-wrapper {
-  height: 100%;
-  flex: 1;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-}
-/* loading */
-.lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ellipsis div {
-  position: absolute;
-  top: 33px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-.lds-ellipsis div:nth-child(1) {
-  left: 8px;
-  animation: lds-ellipsis1 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(2) {
-  left: 8px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(3) {
-  left: 32px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(4) {
-  left: 56px;
-  animation: lds-ellipsis3 0.6s infinite;
-}
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(24px, 0);
-  }
-}
-</style>

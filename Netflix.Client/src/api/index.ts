@@ -18,6 +18,7 @@ export async function post<T>(config: AxiosRequestConfig): Promise<T> {
     config.headers = { "Content-Type" : "application/json" };
   
   const response: AxiosResponse<T> = await axios(config);
+  
   return response.data;
 }
 
