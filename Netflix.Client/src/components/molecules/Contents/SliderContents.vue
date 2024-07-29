@@ -13,7 +13,7 @@
                 prevEl: `.slider${idx} .btn_prev`
             }"
         >
-            <SwiperSlide v-for="content in contents" :key="content.code">
+            <SwiperSlide class="item" v-for="content in contents" :key="content.code">
                 <Content :content="content" @SelectContent="SelectContent" />
             </SwiperSlide>
         </Swiper>
