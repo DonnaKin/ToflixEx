@@ -1,7 +1,7 @@
 <template>
     <h3 class="contents_title">{{ title }}</h3>
-    <div class="list_wrap type_slider" :class="`slider${idx}`">
-        <Swiper
+    <div class="list_wrap type_slider" >
+        <Swiper :class="`slider${idx}`"
             :modules="[ Navigation ]"
             :slides-per-view="5"
             :slides-per-group="5"
